@@ -1,0 +1,64 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.build/
+dist/
+eggs/
+.eggs/
+*.egg-info/
+pip-wheel-metadata/
+.venv/
+venv/
+env/
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+*.py,cover
+.cache
+.pytest_cache/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# IDE settings
+.idea/
+.vscode/
+
+# System files
+.DS_Store
+
+# Logs
+*.log
+
+# virtual environment
+.venv/
+
+# dotenv
+.env
+*.env*
+
+# MyPy / Lint
+.mypy_cache/
+.pytype/
+ruff_cache/
+
+# Profiling data
+.prof
+
+# SQLite DB / temp data
+*.db
+*.sqlite3
