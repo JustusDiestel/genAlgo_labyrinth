@@ -1,7 +1,7 @@
 import numpy as np
 
 class Maze:
-    def __init__(self, width=20, height=20):
+    def __init__(self, width=15, height=15):
         self.width = width
         self.height = height
         self.grid = np.ones((height, width), dtype=int)

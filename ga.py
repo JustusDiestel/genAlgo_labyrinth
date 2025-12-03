@@ -3,8 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from maze import Maze
 
-POP_SIZE = 20
-STEPS = 1000
+POP_SIZE = 100
+STEPS = 200
 MUT_RATE = 0.1
 GENERATIONS = 100
 
@@ -23,43 +23,46 @@ def simulate(ind):
 
 def fitness(ind):
     pos = maze.START
-    score = 0
     visited = set([pos])
+    score = 0
+
     best_dist = np.linalg.norm(np.array(pos) - np.array(maze.GOAL))
 
     for step, m in enumerate(ind):
+
         new_pos = maze.move(pos, m)
         d_old = np.linalg.norm(np.array(pos) - np.array(maze.GOAL))
         d_new = np.linalg.norm(np.array(new_pos) - np.array(maze.GOAL))
+        delta = d_old - d_new
 
-        if new_pos == pos:  # wall
-            score -= 5
+        # Wall = strong punishment
+        if new_pos == pos:
+            score -= 10
         else:
-            score += 1  # movement reward
+            # reward ANY movement
+            score += 1
 
-        if new_pos in visited:
-            score -= 2  # avoid loops
-        else:
-            visited.add(new_pos)
+            # novelty reward: first-time visit
+            if new_pos not in visited:
+                score += 6
+                visited.add(new_pos)
 
-        # reward actual progress
-        if d_new < d_old:
-            score += (d_old - d_new) * 10
+        # directional reward / punish
+        score += delta * 20
+        if delta < 0:
+            score += delta * 30  # bigger penalty moving away
 
-        # punish going back
-        else:
-            score -= (d_new - d_old) * 5
-
-        pos = new_pos
         best_dist = min(best_dist, d_new)
+        pos = new_pos
 
+        # Bonus for reaching goal fast
         if pos == maze.GOAL:
-            score += 1000
-            score += (STEPS - step) * 2  # reward faster finish
-            break
+            score += 2000
+            score += (STEPS - step) * 4
+            return score
 
-    # global final reward = how near we got
-    score += max(0, 200 - best_dist * 10)
+    # partial success reward
+    score += max(0, 600 - best_dist * 50)
 
     return score
 
