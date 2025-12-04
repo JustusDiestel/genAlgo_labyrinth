@@ -1,7 +1,7 @@
 import numpy as np
 
 class Maze:
-    def __init__(self, width=15, height=15):
+    def __init__(self, width=30, height=30):
         self.width = width
         self.height = height
         self.grid = np.ones((height, width), dtype=int)
@@ -20,6 +20,15 @@ class Maze:
         # start DFS from (1,1)
         self.grid[1,1] = 0
         carve(1,1)
+
+
+        # Create some additional random connections to allow multiple paths
+        extra_tunnels = (width * height) // 20
+        for _ in range(extra_tunnels):
+            rx, ry = np.random.randint(1, height-1), np.random.randint(1, width-1)
+            if self.grid[rx, ry] == 1:
+                self.grid[rx, ry] = 0
+
 
         self.START = (1,1)
         self.GOAL = (height-2, width-2)
