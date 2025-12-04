@@ -4,10 +4,10 @@ import matplotlib.pyplot as plt
 from maze import Maze
 
 
-POP_SIZE     = 700
-STEPS        = 200
+POP_SIZE     = 500
+STEPS        = 400
 MUT_RATE     = 0.1
-GENERATIONS  = 100
+GENERATIONS  = 200
 
 ELITE_FRAC   = 0.2
 TOURNEY_K    = 8
@@ -120,6 +120,8 @@ def mutate(individual, generation):
     return individual
 
 def visualize_population(population, generation, title_suffix=""):
+
+    plt.clf()
     plt.imshow(maze.grid, cmap="gray")
     plt.axis("off")
 
@@ -132,10 +134,10 @@ def visualize_population(population, generation, title_suffix=""):
         y.append(pos[0])
         if pos == maze.GOAL:
             break
-    plt.plot(x, y, linewidth=1,)
+    plt.plot(x, y, linewidth=1, )
     plt.scatter(x[-1], y[-1], s=50)
 
-    for individual in population[1:] :
+    for individual in population[1:]:
         pos = maze.START
         x, y = [pos[1]], [pos[0]]
         for m in individual:
@@ -151,8 +153,8 @@ def visualize_population(population, generation, title_suffix=""):
     plt.scatter(maze.GOAL[1], maze.GOAL[0], s=100, marker="x")
 
     plt.title(f"Generation {generation} {title_suffix}")
-    plt.pause(0.5)
-    plt.clf()
+    plt.pause(0.2)
+
 
 
 
