@@ -4,7 +4,7 @@ Dieses Projekt implementiert einen genetischen Algorithmus (GA), der lernt, ein 
 Dabei entwickeln sich über Generationen hinweg Pfade, die vom Startpunkt zum Ziel führen.
 
 
-![Maze Beispiel](Images/Bildschirmfoto 2025-12-04 um 11.04.26.png)
+![Maze Beispiel](Bildschirmfoto 2025-12-04 um 11.04.26.png)
 ---
 
 ## Funktionsweise
