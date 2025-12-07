@@ -5,7 +5,7 @@ from maze import Maze
 
 
 POP_SIZE     = 500
-STEPS        = 400
+STEPS        = 150
 MUT_RATE     = 0.1
 GENERATIONS  = 200
 
