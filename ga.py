@@ -51,6 +51,7 @@ def fitness(individual, generation):
     score = 0.0
 
     best_dist = euclidean_dist(position, maze.GOAL)
+    new_visited_count = 0
 
     for step, movement in enumerate(individual):
         new_pos = maze.move(position, movement)
@@ -60,10 +61,12 @@ def fitness(individual, generation):
 
         if new_pos == position:
             score -= FINE_WALL
+
         else:
             if new_pos not in visited:
                 score += REWARD_NEW
                 visited.add(new_pos)
+                new_visited_count += 1
             else:
                 if step > 0 and new_pos == maze.move(position, (individual[step - 1] + 2) % 4):
                     score -= FINE_ALREADY_VISITED
@@ -72,7 +75,6 @@ def fitness(individual, generation):
             if progress_to_goal < 0:
                 score += progress_to_goal * FINE_FURTHER_GOAL
 
-        best_dist = min(best_dist, distance_new)
         position = new_pos
 
         if position == maze.GOAL:
@@ -81,7 +83,7 @@ def fitness(individual, generation):
             return score
 
     explore_factor = max(0, 1 - generation / GENERATIONS)
-    score += explore_factor * REWARD_EXPLORE * (new_pos not in visited)
+    score += explore_factor * REWARD_EXPLORE * new_visited_count
 
     return score
 
@@ -184,7 +186,7 @@ def run():
         elite = [ind[:] for ind, _ in fitness_values[:elite_count]]
 
         top_10 = [ind for ind, _ in fitness_values[:min(10, POP_SIZE)]]
-        visualize_population(top_10, gen, title_suffix=f"(best={best_fitness:.1f})")
+        visualize_population(top_10, gen, title_suffix=f"(best={best_global_fitness:.1f})")
 
         if simulate(best_individual) == maze.GOAL:
             print(f"Ziel erreicht in Generation {gen}, Fitness {best_fitness:.2f}")
