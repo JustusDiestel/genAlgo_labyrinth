@@ -161,7 +161,7 @@ def run():
     population= [create_individual() for n in range(POP_SIZE)]
     plt.ion()
 
-    best_global_fitness = -10**9
+    best_global_fitness = -10000000
     best_global_ind = None
 
     for gen in range(GENERATIONS):
@@ -180,9 +180,9 @@ def run():
             best_global_ind = best_individual[:]
 
         elite_count = max(2, int(POP_SIZE * ELITE_FRAC))
-        elite = [ind[:] for ind, _ in fitness_values[:elite_count]]
+        elite = [ind[:] for ind, i in fitness_values[:elite_count]]
 
-        top_10 = [ind for ind, _ in fitness_values[:min(10, POP_SIZE)]]
+        top_10 = [ind for ind, i in fitness_values[:min(10, POP_SIZE)]]
         visualize_population(top_10, gen, title_suffix=f"(best={best_global_fitness:.1f})")
 
         if simulate(best_individual) == maze.GOAL:
