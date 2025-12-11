@@ -115,10 +115,7 @@ def mutate(individual, generation):
 
     for i in range(STEPS):
         if random.random() < rate:
-            if random.random() < 0.5:
                 individual[i] = random.randrange(4)
-            else:
-                individual[i] = (individual[i] + random.choice([-1, 1])) % 4
     return individual
 
 def visualize_population(population, generation, title_suffix=""):
